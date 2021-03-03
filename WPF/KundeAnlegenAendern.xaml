@@ -9,14 +9,14 @@
     <Grid Background="#FFD9E2E3" HorizontalAlignment="Left" Width="790" Margin="10,0,0,0">
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="366" Margin="174,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="446"/>
 
-        <Label Content="Nachname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="470,63,0,0"/>
-        <TextBox x:Name="TB_Nname" HorizontalAlignment="Left" Height="23" Margin="470,88,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Vorname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="471,118,0,0"/>
-        <TextBox x:Name="TB_Vname" HorizontalAlignment="Left" Height="23" Margin="471,143,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Telefon" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="470,177,0,0"/>
-        <TextBox x:Name="TB_Telefon" HorizontalAlignment="Left" Height="24" Margin="472,204,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="E-mail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="470,237,0,0"/>
-        <TextBox x:Name="TB_mail" HorizontalAlignment="Left" Height="23" Margin="470,268,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Nachname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="470,111,0,0"/>
+        <TextBox x:Name="TB_Nname" HorizontalAlignment="Left" Height="23" Margin="470,136,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Vorname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="471,166,0,0"/>
+        <TextBox x:Name="TB_Vname" HorizontalAlignment="Left" Height="23" Margin="471,191,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Telefon" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="471,223,0,0"/>
+        <TextBox x:Name="TB_Telefon" HorizontalAlignment="Left" Height="24" Margin="470,252,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="E-mail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="470,285,0,0"/>
+        <TextBox x:Name="TB_mail" HorizontalAlignment="Left" Height="23" Margin="470,316,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
 
         <Label Content="Firma" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="201,16,0,0"/>
         <Label Content="Strasse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="207,113,0,0"/>
@@ -27,11 +27,13 @@
         <TextBox x:Name="TB_PLZ" HorizontalAlignment="Left" Height="23" Margin="207,253,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Label Content="Ort" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="207,293,0,0"/>
         <TextBox x:Name="TB_Ort" HorizontalAlignment="Left" Height="23" Margin="207,318,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="BT_speichern" Content="Anlegen" HorizontalAlignment="Right" Margin="0,0,180,32" VerticalAlignment="Bottom" Width="74" Click="BT_speichern_Click"/>
+        <Button x:Name="BT_speichern" Content="Anlegen" HorizontalAlignment="Right" Margin="0,0,180,32" VerticalAlignment="Bottom" Width="74" Click="BT_speichern_OnClick"/>
         <Label Content="Ansprechpartner" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="456,16,0,0"/>
         <Button x:Name="BT_abbrechen" Content="Abbrechen" HorizontalAlignment="Right" Margin="0,0,528,35" VerticalAlignment="Bottom" Width="74" Click="BT_abbrechen_OnClick"/>
         <Label Content="Firmenname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="208,54,0,0"/>
         <TextBox x:Name="TB_Name" HorizontalAlignment="Left" Height="23" Margin="208,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="TB_Titel" HorizontalAlignment="Left" Height="23" Margin="471,83,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Titel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="470,52,0,0"/>
 
     </Grid>
 </Page>

@@ -13,13 +13,13 @@
         <Label Content="Kundendaten" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="26,23,0,0" Height="26" Width="81"/>
         <DataGrid x:Name="DG_Kunden" ItemsSource="{Binding kundenListe}" IsReadOnly="True"  Width="350" Height="268" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="26,0,0,101" />
         <DataGrid x:Name="DG_Termine" ItemsSource="{Binding terminListe}" IsReadOnly="True"  Width="350" Height="268" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="419,0,0,101"   />
-        <Button x:Name="BT_KD_Anlegen" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="26,359,0,0" Content="Anlegen" Click="BT_KD_Anlegen_Click" />
-        <Button x:Name="BT_KD_Aendern" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,554,45" Content="Ändern" Click="BT_KD_Aendern_Click" />
-        <Button x:Name="BT_KD_Loeschen" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,429,45" Content="Löschen" Click="BT_KD_Loeschen_Click" />
+        <Button x:Name="BT_KD_Anlegen" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="26,359,0,0" Content="Anlegen" Click="BT_KD_Anlegen_OnClick" />
+        <Button x:Name="BT_KD_Aendern" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,554,45" Content="Ändern" Click="BT_KD_Aendern_OnClick" />
+        <Button x:Name="BT_KD_Loeschen" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,429,45" Content="Löschen" Click="BT_KD_Loeschen_OnClick" />
 
         <Label Content="Termine" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="418,21,0,0" Height="26" Width="52"/>
-        <Button Name="BT_Neuer_Termin" Content="Neuer Termin" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,359,279,0" Width="102" Click="BT_Neuer_Termin_Click" Height="30" />
-        <Button Name="BT_Termin_ändern" Content="Ändern" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,358,156,0" Width="100" Click="BT_Termin_ändern_Click"  Height="30" />
-        <Button Name="BT_Termin_Loeschen" Content="Termin löschen" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,358,32,0" Width="100" Click="BT_Termin_Loeschen_Click" Height="30" />
+        <Button Name="BT_Neuer_Termin" Content="Neuer Termin" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,359,279,0" Width="102" Click="BT_Neuer_Termin_OnClick" Height="30" />
+        <Button Name="BT_Termin_ändern" Content="Ändern" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,358,156,0" Width="100" Click="BT_Termin_ändern_OnClick"  Height="30" />
+        <Button Name="BT_Termin_Loeschen" Content="Termin löschen" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,358,32,0" Width="100" Click="BT_Termin_Loeschen_OnClick" Height="30" />
     </Grid>
 </Window>

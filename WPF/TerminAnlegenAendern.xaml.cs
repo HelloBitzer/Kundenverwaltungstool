@@ -22,5 +22,15 @@ namespace WPF
         {
             InitializeComponent();
         }
+
+        private void BT_erstellen_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void BT_abbrechen_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

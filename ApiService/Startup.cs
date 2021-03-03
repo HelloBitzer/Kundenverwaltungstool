@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace ApiService
 {
@@ -29,8 +30,13 @@ namespace ApiService
         {
             services.AddControllers();
 
+            //1. Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Test Api", Version = "v1" });
+            });
 
-            //DBContext Klasse als Dienst hinzufügen
+            //DBContext als Dienst hinzufügen
             services.AddDbContext<KundeDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
@@ -42,6 +48,14 @@ namespace ApiService
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //2. Swagger, using statement, http Request Pipeline
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test Api v1");
+            });
 
             app.UseHttpsRedirection();
 

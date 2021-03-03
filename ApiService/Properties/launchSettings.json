@@ -1,29 +1,35 @@
-﻿{
-  "$schema": "http://json.schemastore.org/launchsettings.json",
+﻿
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/ApiService",
+      "sslPort": 0
+    },
     "iisExpress": {
-      "applicationUrl": "http://localhost:51553",
-      "sslPort": 44340
+      "applicationUrl": "http://localhost:44328",
+      "sslPort": 0
     }
   },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
+      "launchUrl": "http://localhost:44328/swagger/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "ApiService": {
-      "commandName": "Project",
+      "commandName": "IIS",
       "launchBrowser": true,
-      "launchUrl": "ApiService",
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "launchUrl": "http://localhost/ApiService",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
   }
 }

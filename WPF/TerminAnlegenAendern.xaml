@@ -29,7 +29,7 @@
         <ComboBox Name="CB_grund" HorizontalAlignment="Left" Margin="54,192,0,0" VerticalAlignment="Top" Width="162"/>
 
         <TextBox x:Name="TB_bemerkung" VerticalAlignment="Top" Margin="54,233,0,0" TextWrapping="Wrap" AcceptsReturn="True" HorizontalAlignment="Left" Height="179" Width="482" />
-        <Button Name="BT_erstellen" Content="Speichern" HorizontalAlignment="Left" Margin="489,457,0,0" VerticalAlignment="Top" Width="75" Click="BT_erstellen_Click"/>
+        <Button Name="BT_erstellen" Content="Speichern" HorizontalAlignment="Left" Margin="489,457,0,0" VerticalAlignment="Top" Width="75" Click="BT_erstellen_OnClick"/>
         <Button x:Name="BT_abbrechen" Content="Abbrechen" HorizontalAlignment="Left" Margin="34,457,0,0" VerticalAlignment="Top" Width="75" Click="BT_abbrechen_OnClick"/>
     </Grid>
 </Page>
