@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ApiService</name>
+    </assembly>
+    <members>
+        <member name="M:ApiService.Controllers.AnsprechpartnerController.PostAnsprechpartner(Dtos.AnsprechpartnerDto)">
+            <summary>
+            Erzeugt einen neuen Ansprechpartner
+            </summary>
+            <param name="ansprechpartner"></param>
+            <returns></returns>
+            <response code="409">FirmenID existiert nicht</response>
+        </member>
+    </members>
+</doc>

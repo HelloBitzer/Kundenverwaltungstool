@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Context.Models;
+using Dtos;
 
 namespace ApiService.Controllers
 {
@@ -21,15 +22,24 @@ namespace ApiService.Controllers
         }
 
         // GET: api/Kundentermin
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Kundentermin>>> GetKundentermins()
+        [HttpGet("GetKundentermin")]
+        public async Task<ActionResult<IEnumerable<KundenterminDto>>> GetKundentermins()
         {
-            return await _context.Kundentermins.ToListAsync();
+            IEnumerable<KundenterminDto> kundentermin = from p in _context.Kundentermins
+                                                              select new KundenterminDto()
+                                                              {
+                                                                  KundenterminId = p.KundenterminId,
+                                                                  AnsprechpartnerId = p.AnsprechpartnerId,
+                                                                  TerminId = p.TerminId,
+                                                                  Name = p.Name
+                                                              };
+
+            return Ok(kundentermin);
         }
 
         // GET: api/Kundentermin/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Kundentermin>> GetKundentermin(int id)
+        [HttpGet("GetKundentermin/{id}")]
+        public async Task<ActionResult<KundenterminDto>> GetKundentermin(int id)
         {
             var kundentermin = await _context.Kundentermins.FindAsync(id);
 
@@ -38,21 +48,39 @@ namespace ApiService.Controllers
                 return NotFound();
             }
 
-            return kundentermin;
+            var kundentermins = new KundenterminDto()
+            {
+
+                KundenterminId = kundentermin.KundenterminId,
+                AnsprechpartnerId = kundentermin.AnsprechpartnerId,
+                TerminId = kundentermin.AnsprechpartnerId,
+                Name = kundentermin.Name
+            };
+
+            return kundentermins;
         }
 
         // PUT: api/Kundentermin/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutKundentermin(int id, Kundentermin kundentermin)
+        [HttpPut("PutKundentermin/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> PutKundentermin(int id, KundenterminDto kundentermins)
         {
-            if (id != kundentermin.KundenterminId)
+            if (id != kundentermins.KundenterminId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(kundentermin).State = EntityState.Modified;
+            var kundentermin = await _context.Kundentermins.FindAsync(id);
+            if (kundentermin == null)
+            {
+                return NotFound();
+            }
+
+            //Daten
+            kundentermin.KundenterminId = kundentermins.KundenterminId;
+            kundentermin.AnsprechpartnerId = kundentermins.AnsprechpartnerId;
+            kundentermin.TerminId = kundentermins.TerminId;
+            kundentermin.Name = kundentermins.Name;
 
             try
             {
@@ -74,11 +102,19 @@ namespace ApiService.Controllers
         }
 
         // POST: api/Kundentermin
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<Kundentermin>> PostKundentermin(Kundentermin kundentermin)
+        [HttpPost("PostKundentermin")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<ActionResult<KundenterminDto>> PostKundentermin(KundenterminDto kundentermins)
         {
+            var kundentermin = new Kundentermin()
+            {
+                KundenterminId = kundentermins.KundenterminId,
+                AnsprechpartnerId = kundentermins.AnsprechpartnerId,
+                TerminId = kundentermins.TerminId,
+                Name = kundentermins.Name
+            };
+
+
             _context.Kundentermins.Add(kundentermin);
             await _context.SaveChangesAsync();
 
@@ -86,8 +122,8 @@ namespace ApiService.Controllers
         }
 
         // DELETE: api/Kundentermin/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Kundentermin>> DeleteKundentermin(int id)
+        [HttpDelete("DeleteKundentermin{id}")]
+        public async Task<ActionResult<KundenterminDto>> DeleteKundentermin(int id)
         {
             var kundentermin = await _context.Kundentermins.FindAsync(id);
             if (kundentermin == null)
@@ -98,7 +134,7 @@ namespace ApiService.Controllers
             _context.Kundentermins.Remove(kundentermin);
             await _context.SaveChangesAsync();
 
-            return kundentermin;
+            return NoContent();
         }
 
         private bool KundenterminExists(int id)

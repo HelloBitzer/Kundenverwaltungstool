@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Context.Models;
+using Dtos;
 
 namespace ApiService.Controllers
 {
@@ -21,15 +22,27 @@ namespace ApiService.Controllers
         }
 
         // GET: api/Ansprechpartner
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ansprechpartner>>> GetAnsprechpartners()
+        [HttpGet("GetAnsprechpartner")]
+        public ActionResult<IEnumerable<AnsprechpartnerDto>> GetAnsprechpartner()
         {
-            return await _context.Ansprechpartners.ToListAsync();
+            IEnumerable<AnsprechpartnerDto> ansprechpartner = from p in _context.Ansprechpartners
+                                                              select new AnsprechpartnerDto()
+                                                              {
+                                                                  AnsprechpartnerId = p.AnsprechpartnerId,
+                                                                  Nachname = p.Nachname,
+                                                                  Vorname = p.Vorname,
+                                                                  Telefon = p.Telefon,
+                                                                  Email = p.Email,
+                                                                  FirmenId = p.FirmenId,
+                                                                  Titel = p.Titel
+                                                              };
+            return Ok(ansprechpartner);
         }
 
+
         // GET: api/Ansprechpartner/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Ansprechpartner>> GetAnsprechpartner(int id)
+        [HttpGet("GetAnsprechpartner/{id}")]
+        public async Task<ActionResult<AnsprechpartnerDto>> GetAnsprechpartner(int id)
         {
             var ansprechpartner = await _context.Ansprechpartners.FindAsync(id);
 
@@ -38,21 +51,45 @@ namespace ApiService.Controllers
                 return NotFound();
             }
 
-            return ansprechpartner;
+            //Fragen warum get und new
+
+            var ansprechpartners = new AnsprechpartnerDto()
+            {
+                AnsprechpartnerId = ansprechpartner.AnsprechpartnerId,
+                Nachname = ansprechpartner.Nachname,
+                Vorname = ansprechpartner.Vorname,
+                Telefon = ansprechpartner.Telefon,
+                Email = ansprechpartner.Email,
+                FirmenId = ansprechpartner.FirmenId,
+                Titel = ansprechpartner.Titel
+            };
+
+            return Ok(ansprechpartners);
         }
 
         // PUT: api/Ansprechpartner/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAnsprechpartner(int id, Ansprechpartner ansprechpartner)
+        [HttpPut("PutAnsprechpartner/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> PutAnsprechpartner(int id, AnsprechpartnerDto ansprechpartner)
         {
             if (id != ansprechpartner.AnsprechpartnerId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(ansprechpartner).State = EntityState.Modified;
+            var ansprechpartners = await _context.Ansprechpartners.FindAsync(id);
+            if (ansprechpartners == null)
+            {
+                return NotFound();
+            }
+
+            ansprechpartners.AnsprechpartnerId = ansprechpartner.AnsprechpartnerId;
+            ansprechpartners.Nachname = ansprechpartner.Nachname;
+            ansprechpartners.Vorname = ansprechpartner.Vorname;
+            ansprechpartners.Telefon = ansprechpartner.Telefon;
+            ansprechpartners.Email = ansprechpartner.Email;
+            ansprechpartners.FirmenId = ansprechpartner.FirmenId;
+            ansprechpartners.Titel = ansprechpartner.Titel;
 
             try
             {
@@ -69,25 +106,52 @@ namespace ApiService.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
+
         // POST: api/Ansprechpartner
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<Ansprechpartner>> PostAnsprechpartner(Ansprechpartner ansprechpartner)
+        /// <summary>
+        /// Erzeugt einen neuen Ansprechpartner
+        /// </summary>
+        /// <param name="ansprechpartner"></param>
+        /// <returns></returns>
+        /// <response code="409">FirmenID existiert nicht</response>
+        [HttpPost("PostAnsprechpartner")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<ActionResult<AnsprechpartnerDto>> PostAnsprechpartner(AnsprechpartnerDto ansprechpartner)
         {
-            _context.Ansprechpartners.Add(ansprechpartner);
+            //Prüfen ob es FirmenID gibt
+
+           var firma = _context.Firmas.FindAsync(ansprechpartner.FirmenId);
+           if (firma == null)
+           {
+               return Conflict();
+           }
+
+            var ansprechpartners = new Ansprechpartner()
+            {
+                Nachname = ansprechpartner.Nachname,
+                Vorname = ansprechpartner.Vorname,
+                Telefon = ansprechpartner.Telefon,
+                Email = ansprechpartner.Email,
+                FirmenId = ansprechpartner.FirmenId,
+                Titel = ansprechpartner.Titel
+            };
+
+
+            _context.Ansprechpartners.Add(ansprechpartners);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAnsprechpartner", new { id = ansprechpartner.AnsprechpartnerId }, ansprechpartner);
+            ansprechpartner.AnsprechpartnerId = ansprechpartners.AnsprechpartnerId;
+            
+            return CreatedAtAction(nameof(GetAnsprechpartner), new { id = ansprechpartner.AnsprechpartnerId }, ansprechpartner);
         }
 
         // DELETE: api/Ansprechpartner/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Ansprechpartner>> DeleteAnsprechpartner(int id)
+        [HttpDelete("DeleteAnsprechpartner/{id}")]
+        public async Task<ActionResult<AnsprechpartnerDto>> DeleteAnsprechpartner(int id)
         {
             var ansprechpartner = await _context.Ansprechpartners.FindAsync(id);
             if (ansprechpartner == null)
@@ -98,7 +162,7 @@ namespace ApiService.Controllers
             _context.Ansprechpartners.Remove(ansprechpartner);
             await _context.SaveChangesAsync();
 
-            return ansprechpartner;
+            return NoContent();
         }
 
         private bool AnsprechpartnerExists(int id)

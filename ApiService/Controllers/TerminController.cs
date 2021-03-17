@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Context.Models;
+using Dtos;
 
 namespace ApiService.Controllers
 {
@@ -21,15 +22,25 @@ namespace ApiService.Controllers
         }
 
         // GET: api/Termin
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Termin>>> GetTermins()
+        [HttpGet("GetTermin")]
+        public async Task<ActionResult<IEnumerable<TerminDto>>> GetTermin()
         {
-            return await _context.Termins.ToListAsync();
+            IEnumerable<TerminDto> termins = from p in _context.Termins
+                                             select new TerminDto()
+                                             {
+                                                 TerminId = p.TerminId,
+                                                 Start = p.Start,
+                                                 Ende = p.Ende,
+                                                 Bemerkung = p.Bemerkung
+                                             };
+
+            return Ok(termins);
         }
 
+
         // GET: api/Termin/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Termin>> GetTermin(int id)
+        [HttpGet("GetTermin{id}")]
+        public async Task<ActionResult<TerminDto>> GetTermin(int id)
         {
             var termin = await _context.Termins.FindAsync(id);
 
@@ -38,21 +49,38 @@ namespace ApiService.Controllers
                 return NotFound();
             }
 
-            return termin;
+            var termins = new TerminDto()
+            {
+                TerminId = termin.TerminId,
+                Start = termin.Start,
+                Ende = termin.Ende,
+                Bemerkung = termin.Bemerkung
+            };
+
+            return Ok(termins);
         }
 
         // PUT: api/Termin/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTermin(int id, Termin termin)
+        [HttpPut("PutTermin/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> PutTermin(int id, TerminDto termins)
         {
-            if (id != termin.TerminId)
+            if (id != termins.TerminId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(termin).State = EntityState.Modified;
+            var termin = await _context.Termins.FindAsync(id);
+            if (termin == null)
+            {
+                return NotFound();
+            }
+
+            //Daten
+            termin.TerminId = termins.TerminId;
+            termin.Start = termins.Start;
+            termin.Ende = termins.Ende;
+            termin.Bemerkung = termins.Bemerkung;
 
             try
             {
@@ -69,16 +97,23 @@ namespace ApiService.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
         // POST: api/Termin
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<Termin>> PostTermin(Termin termin)
+        [HttpPost("PostTermin")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<ActionResult<TerminDto>> PostTermin(TerminDto termins)
         {
+            var termin = new Termin()
+            {
+                TerminId = termins.TerminId,
+                Start = termins.Start,
+                Ende = termins.Ende,
+                Bemerkung = termins.Bemerkung
+            };
+
+
             _context.Termins.Add(termin);
             await _context.SaveChangesAsync();
 
@@ -86,8 +121,8 @@ namespace ApiService.Controllers
         }
 
         // DELETE: api/Termin/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Termin>> DeleteTermin(int id)
+        [HttpDelete("DeleteTermin/{id}")]
+        public async Task<ActionResult<TerminDto>> DeleteTermin(int id)
         {
             var termin = await _context.Termins.FindAsync(id);
             if (termin == null)
@@ -98,7 +133,7 @@ namespace ApiService.Controllers
             _context.Termins.Remove(termin);
             await _context.SaveChangesAsync();
 
-            return termin;
+            return NoContent();
         }
 
         private bool TerminExists(int id)

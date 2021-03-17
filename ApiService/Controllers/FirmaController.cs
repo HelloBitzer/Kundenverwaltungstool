@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Context.Models;
+using Dtos;
 
 namespace ApiService.Controllers
 {
@@ -20,16 +21,28 @@ namespace ApiService.Controllers
             _context = context;
         }
 
+
         // GET: api/Firma
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Firma>>> GetFirmas()
+        [HttpGet("GetFirma")]
+        public async Task<ActionResult<IEnumerable<FirmaDto>>> GetFirma()
         {
-            return await _context.Firmas.ToListAsync();
+            IEnumerable<FirmaDto> firma = from p in _context.Firmas
+                                          select new FirmaDto()
+                                          {
+                                              FirmenId = p.FirmenId,
+                                              Name = p.Name,
+                                              Strasse = p.Strasse,
+                                              Hausnummer = p.Hausnummer,
+                                              Plz = p.Plz,
+                                              Ort = p.Ort
+                                          };
+
+            return Ok(firma);
         }
 
         // GET: api/Firma/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Firma>> GetFirma(int id)
+        [HttpGet("GetFirma/{id}")]
+        public async Task<ActionResult<FirmaDto>> GetFirma(int id)
         {
             var firma = await _context.Firmas.FindAsync(id);
 
@@ -38,21 +51,44 @@ namespace ApiService.Controllers
                 return NotFound();
             }
 
-            return firma;
+            var firmas = new FirmaDto()
+            {
+                FirmenId = firma.FirmenId,
+                Name = firma.Name,
+                Strasse = firma.Strasse,
+                Hausnummer = firma.Hausnummer,
+                Plz = firma.Plz,
+                Ort = firma.Ort
+            };
+
+            return Ok(firmas);
         }
 
+
+
         // PUT: api/Firma/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFirma(int id, Firma firma)
+        [HttpPut("PutFirma/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> PutFirma(int id, FirmaDto firma)
         {
             if (id != firma.FirmenId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(firma).State = EntityState.Modified;
+            var firmas = await _context.Firmas.FindAsync(id);
+            if (firmas == null)
+            {
+                return NotFound();
+            }
+
+            firmas.FirmenId = firma.FirmenId;
+            firmas.Name = firma.Name;
+            firmas.Strasse = firma.Strasse;
+            firmas.Hausnummer = firma.Hausnummer;
+            firmas.Plz = firma.Plz;
+            firmas.Ort = firma.Ort;
+
 
             try
             {
@@ -69,25 +105,34 @@ namespace ApiService.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
         // POST: api/Firma
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<Firma>> PostFirma(Firma firma)
+        [HttpPost("PostFirma")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<ActionResult<FirmaDto>> PostFirma(FirmaDto firma)
         {
-            _context.Firmas.Add(firma);
+            var firmas = new Firma()
+            {
+                FirmenId = firma.FirmenId,
+                Name = firma.Name,
+                Strasse = firma.Strasse,
+                Hausnummer = firma.Hausnummer,
+                Plz = firma.Plz,
+                Ort = firma.Ort
+            };
+
+            _context.Firmas.Add(firmas);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetFirma", new { id = firma.FirmenId }, firma);
         }
 
+
         // DELETE: api/Firma/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Firma>> DeleteFirma(int id)
+        [HttpDelete("DeleteFirma/{id}")]
+        public async Task<ActionResult<FirmaDto>> DeleteFirma(int id)
         {
             var firma = await _context.Firmas.FindAsync(id);
             if (firma == null)
@@ -98,7 +143,7 @@ namespace ApiService.Controllers
             _context.Firmas.Remove(firma);
             await _context.SaveChangesAsync();
 
-            return firma;
+            return NoContent();
         }
 
         private bool FirmaExists(int id)
