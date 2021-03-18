@@ -22,90 +22,206 @@ namespace WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        //Kundenliste erstellen
-        //private static string url = @"http://localhost:44328";
-        //public ObservableCollection<People> kundenListe { get; set; } = new ObservableCollection<People>();
+        private static string url = @"http://localhost:44328";
 
-        //Terminliste erstellen
-        //public ObservableCollection<Termins> terminListe { get; set; } = new ObservableCollection<Termins>();
+        //Listen erstellen
+        public ObservableCollection<FirmaDto> kundenListe { get; set; } = new ObservableCollection<FirmaDto>();
 
-        //private Client client = null;
+        public ObservableCollection<AnsprechpartnerDto> partnerListe { get; set; } = new ObservableCollection<AnsprechpartnerDto>();
 
+        public ObservableCollection<TerminDto> terminListe { get; set; } = new ObservableCollection<TerminDto>();
+        
+        private Client client = null;
 
 
         public MainWindow()
         {
             InitializeComponent();
 
-            //client = new Client(url);
+            client = new Client(url);
 
-            ////Kundendaten laden 
+            //Kundendaten laden 
 
-            //kundenListe = new ObservableCollection<People>(LoadPeoples());
+            kundenListe = new ObservableCollection<FirmaDto>(LoadFirma());
 
-            //terminListe = new ObservableCollection<Termins>(LoadTermins());
+            terminListe = new ObservableCollection<TerminDto>(LoadTermin());
+
+            partnerListe = new ObservableCollection<AnsprechpartnerDto>(LoadAnsprechpartner());
 
             ////Datengrid an Listen binden
-            //DG_Kunden.ItemsSource = kundenListe;
-            //DG_Termine.ItemsSource = terminListe;
+            DG_Kunden.ItemsSource = kundenListe;
+            DG_Termine.ItemsSource = terminListe;
+            DG_Kunden.ItemsSource = partnerListe;
+
+        }
+
+        //Load Methoden
+
+        private ICollection<FirmaDto> LoadFirma()
+        {
+            try
+            {
+                return client.GetFirmaAllAsync().Result;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Die Kundenliste konnte nicht geladen werden {e.Message}");
+                return null;
+            }
+        }
+
+        private ICollection<AnsprechpartnerDto> LoadAnsprechpartner()
+        {
+            try
+            {
+                return client.GetAnsprechpartnerAllAsync().Result;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Die Ansprechpartner konnte nicht geladen werden {e.Message}");
+                return null;
+            }
         }
 
 
-        //private ICollection<People> LoadPeoples()
-        //{
-        //    try
-        //    {
-        //        return client.GetPeopleAllAsync().Result;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        MessageBox.Show($"Die Kundenliste konnte nicht geladen werden {e.Message}");
-        //        return null;
-        //    }
-        //}
-
-        //private ICollection<Termins> LoadTermins()
-        //{
-        //    try
-        //    {
-        //        return client.GetTerminsAllAsync().Result;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        MessageBox.Show($"Die Terminliste konnte nicht geladen werden {e.Message}");
-        //        return null;
-        //    }
-        //}
+        private ICollection<TerminDto> LoadTermin()
+        {
+            try
+            {
+                return (ICollection<TerminDto>)client.GetTerminAsync().Result;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Die Terminliste konnte nicht geladen werden {e.Message}");
+                return null;
+            }
+        }
 
 
         private void BT_KD_Anlegen_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            client = new Client(url);
+
+            //Fenster erstellen
+            KundenAnlegenAendern aaf = new KundenAnlegenAendern(kundenListe, -1); 
+            //Fenster öffnen                                 
+            aaf.ShowDialog();
         }
 
         private void BT_KD_Aendern_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            //meldung wenn kein Kunde gewählt
+            if (DG_Kunden.SelectedIndex < 0)
+            {
+                MessageBox.Show("Kein Kunde gewählt, Maske zur neuanlage wird geöffnet.");
+            }
+
+            //Fenster erstellen
+            KundenAnlegenAendern aaf = new KundenAnlegenAendern(kundenListe, DG_Kunden.SelectedIndex);
+            //Fenster öffnen
+            aaf.ShowDialog();
+
+            //Datengrid Aktualisieren
+            DG_Kunden.ItemsSource = null;
+            DG_Kunden.ItemsSource = kundenListe;
+        }
+
+        // Wenn das fenster geschlossen wurde, die Liste neu lesen und anzeigen
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            client = new Client(url);
+
+            kundenListe = new ObservableCollection<FirmaDto>(LoadFirma());
+            terminListe = new ObservableCollection<TerminDto>(LoadTermin());
+            partnerListe = new ObservableCollection<AnsprechpartnerDto>(LoadAnsprechpartner());
+
+            //Datengrid an Listen binden
+            DG_Kunden.ItemsSource = kundenListe;
+            DG_Termine.ItemsSource = terminListe;
         }
 
         private void BT_KD_Loeschen_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            client = new Client(url);
+
+            if (DG_Kunden.SelectedIndex < 0)
+            {
+                MessageBox.Show("Kein Kunde gewählt");
+            }
+
+            Firma firma = DG_Kunden.SelectedItem as Firma;
+
+            client.DeleteFirmaAsync(firma.FirmenId);
+
+            //Datengrid Aktualisieren
+            DG_Kunden.ItemsSource = null;
+            DG_Kunden.ItemsSource = kundenListe;
+
+            kundenListe = new ObservableCollection<FirmaDto>(LoadFirma());
+
+            DG_Kunden.ItemsSource = kundenListe;
         }
+
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            client = new Client(url);
+
+            terminListe = new ObservableCollection<TerminDto>(LoadTermin());
+
+            //Datengrid an Listen binden
+            DG_Termine.ItemsSource = terminListe;
+        }
+
 
         private void BT_Neuer_Termin_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            client = new Client(url);
+
+            //Fenster erstellen
+            Termin time = new Termin(terminListe, -1);
+            //Fenster öffnen
+            time.ShowDialog();
         }
 
         private void BT_Termin_ändern_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            //meldung wenn kein Kunde gewählt
+            if (DG_Termine.SelectedIndex < 0)
+            {
+                MessageBox.Show("Kein Termin gewählt, Maske zur Neuanlage wird geöffnet.");
+            }
+
+            //Fenster erstellen
+            Termin time = new Termin(terminListe, DG_Termine.SelectedIndex);
+            //Fenster öffnen
+            time.ShowDialog();
+
+            //Datengrid Aktualisieren
+            DG_Termine.ItemsSource = null;
+            DG_Termine.ItemsSource = terminListe;
         }
 
         private void BT_Termin_Loeschen_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            client = new Client(url);
+
+            if (DG_Termine.SelectedIndex < 0)
+            {
+                MessageBox.Show("Kein Termin gewählt");
+            }
+
+            Termin termins = DG_Termine.SelectedItem as Termin;
+
+           // client.DeleteTerminAsync(termins.TerminId);
+
+            //Datengrid Aktualisieren
+            DG_Termine.ItemsSource = null;
+            DG_Termine.ItemsSource = terminListe;
+
+            terminListe = new ObservableCollection<TerminDto>(LoadTermin());
+
+            DG_Termine.ItemsSource = terminListe;
         }
     }
 }

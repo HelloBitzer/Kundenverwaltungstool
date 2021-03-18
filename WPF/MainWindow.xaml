@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d"
-        Title="Kundenverwaltungstool" Height="450" Width="800">
+        Title="Kundenverwaltungstool" Height="450" Width="800" Closing="Window_Closing" >
     <Grid Background="#FFD9E2E3" OpacityMask="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400*"/>
@@ -20,6 +20,6 @@
         <Label Content="Termine" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="418,21,0,0" Height="26" Width="52"/>
         <Button Name="BT_Neuer_Termin" Content="Neuer Termin" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,359,279,0" Width="102" Click="BT_Neuer_Termin_OnClick" Height="30" />
         <Button Name="BT_Termin_ändern" Content="Ändern" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,358,156,0" Width="100" Click="BT_Termin_ändern_OnClick"  Height="30" />
-        <Button Name="BT_Termin_Loeschen" Content="Termin löschen" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,358,32,0" Width="100" Click="BT_Termin_Loeschen_OnClick" Height="30" />
+        <Button Name="BT_Termin_Loeschen" Content="Termin löschen" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,358,32,0" Width="100" Click="BT_Termin_Loeschen_OnClick" Height="30"/>
     </Grid>
 </Window>
