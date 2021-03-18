@@ -22,6 +22,14 @@ namespace Context.Models
         public virtual DbSet<Kundentermin> Kundentermins { get; set; }
         public virtual DbSet<Termin> Termins { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=bitzer-pc2; Database=KundeDB; Trusted_Connection=True;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -90,15 +98,11 @@ namespace Context.Models
 
             modelBuilder.Entity<Kundentermin>(entity =>
             {
+                entity.HasKey(e => new { e.AnsprechpartnerId, e.TerminId });
+
                 entity.ToTable("Kundentermin");
 
-                entity.Property(e => e.KundenterminId).HasColumnName("KundenterminID");
-
                 entity.Property(e => e.AnsprechpartnerId).HasColumnName("AnsprechpartnerID");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(100);
 
                 entity.Property(e => e.TerminId).HasColumnName("TerminID");
 
