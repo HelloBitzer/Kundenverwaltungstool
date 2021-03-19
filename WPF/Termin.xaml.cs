@@ -37,7 +37,7 @@ namespace WPF
             this.index = index;
 
             //Enum-Liste
-            CB_grund.ItemsSource = Enum.GetValues(typeof(Termin));
+            CB_grund.ItemsSource = Enum.GetValues(typeof(Termingrund));
 
             //Prüfen ob anlegen...
 

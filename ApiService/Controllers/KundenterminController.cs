@@ -28,10 +28,8 @@ namespace ApiService.Controllers
             IEnumerable<KundenterminDto> kundentermin = from p in _context.Kundentermins
                                                               select new KundenterminDto()
                                                               {
-                                                                  KundenterminId = p.KundenterminId,
                                                                   AnsprechpartnerId = p.AnsprechpartnerId,
                                                                   TerminId = p.TerminId,
-                                                                  Name = p.Name
                                                               };
 
             return Ok(kundentermin);
@@ -50,11 +48,8 @@ namespace ApiService.Controllers
 
             var kundentermins = new KundenterminDto()
             {
-
-                KundenterminId = kundentermin.KundenterminId,
                 AnsprechpartnerId = kundentermin.AnsprechpartnerId,
                 TerminId = kundentermin.AnsprechpartnerId,
-                Name = kundentermin.Name
             };
 
             return kundentermins;
@@ -65,7 +60,9 @@ namespace ApiService.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> PutKundentermin(int id, KundenterminDto kundentermins)
         {
-            if (id != kundentermins.KundenterminId)
+
+            //ID
+            if (id != kundentermins.AnsprechpartnerId)
             {
                 return BadRequest();
             }
@@ -77,10 +74,8 @@ namespace ApiService.Controllers
             }
 
             //Daten
-            kundentermin.KundenterminId = kundentermins.KundenterminId;
             kundentermin.AnsprechpartnerId = kundentermins.AnsprechpartnerId;
             kundentermin.TerminId = kundentermins.TerminId;
-            kundentermin.Name = kundentermins.Name;
 
             try
             {
@@ -108,17 +103,17 @@ namespace ApiService.Controllers
         {
             var kundentermin = new Kundentermin()
             {
-                KundenterminId = kundentermins.KundenterminId,
                 AnsprechpartnerId = kundentermins.AnsprechpartnerId,
                 TerminId = kundentermins.TerminId,
-                Name = kundentermins.Name
             };
 
 
             _context.Kundentermins.Add(kundentermin);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetKundentermin", new { id = kundentermin.KundenterminId }, kundentermin);
+
+            //ID
+            return CreatedAtAction("GetKundentermin", new { id = kundentermin.AnsprechpartnerId, kundentermin.TerminId }, kundentermin);
         }
 
         // DELETE: api/Kundentermin/5
@@ -136,10 +131,10 @@ namespace ApiService.Controllers
 
             return NoContent();
         }
-
+        //ID
         private bool KundenterminExists(int id)
         {
-            return _context.Kundentermins.Any(e => e.KundenterminId == id);
+            return _context.Kundentermins.Any(e => e.AnsprechpartnerId == id);
         }
     }
 }

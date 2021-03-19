@@ -51,7 +51,7 @@ namespace WPF
             ////Datengrid an Listen binden
             DG_Kunden.ItemsSource = kundenListe;
             DG_Termine.ItemsSource = terminListe;
-            DG_Kunden.ItemsSource = partnerListe;
+            DG_Ansprechpartner.ItemsSource = partnerListe;
 
         }
 
@@ -78,7 +78,7 @@ namespace WPF
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Die Ansprechpartner konnte nicht geladen werden {e.Message}");
+                MessageBox.Show($"Die Ansprechpartner konnten nicht geladen werden {e.Message}");
                 return null;
             }
         }
@@ -138,6 +138,7 @@ namespace WPF
             //Datengrid an Listen binden
             DG_Kunden.ItemsSource = kundenListe;
             DG_Termine.ItemsSource = terminListe;
+            DG_Ansprechpartner.ItemsSource = partnerListe;
         }
 
         private void BT_KD_Loeschen_OnClick(object sender, RoutedEventArgs e)
@@ -149,9 +150,9 @@ namespace WPF
                 MessageBox.Show("Kein Kunde gewählt");
             }
 
-            Firma firma = DG_Kunden.SelectedItem as Firma;
+            //Firma firma = DG_Kunden.SelectedItem as Firma;
 
-            client.DeleteFirmaAsync(firma.FirmenId);
+           // client.DeleteFirmaAsync(firma.FirmenId);
 
             //Datengrid Aktualisieren
             DG_Kunden.ItemsSource = null;
@@ -222,6 +223,52 @@ namespace WPF
             terminListe = new ObservableCollection<TerminDto>(LoadTermin());
 
             DG_Termine.ItemsSource = terminListe;
+        }
+
+        private void BT_Ansprechpartner_Anlegen_OnClick(object sender, RoutedEventArgs e)
+        {
+            client = new Client(url);
+
+            //Fenster erstellen
+            Ansprechpartner anf = new Ansprechpartner(partnerListe, -1);
+            //Fenster öffnen                                 
+            anf.ShowDialog();
+        }
+
+        private void BT_Ansprechpartner_Aendern_OnClick(object sender, RoutedEventArgs e)
+        {
+            //meldung wenn kein Ansprechpartner gewählt
+            if (DG_Ansprechpartner.SelectedIndex < 0)
+            {
+                MessageBox.Show("Kein Ansprechpartner gewählt, Maske zur Neuanlage wird geöffnet.");
+            }
+
+            //Fenster erstellen
+            Ansprechpartner anf = new Ansprechpartner(partnerListe, DG_Ansprechpartner.SelectedIndex);
+            //Fenster öffnen
+            anf.ShowDialog();
+
+            //Datengrid Aktualisieren
+            DG_Kunden.ItemsSource = null;
+            DG_Kunden.ItemsSource = kundenListe;
+        }
+
+        private void BT_Ansprechpartner_Loeschen_OnClick(object sender, RoutedEventArgs e)
+        {
+            client = new Client(url);
+
+            if (DG_Ansprechpartner.SelectedIndex < 0)
+            {
+                MessageBox.Show("Kein Ansprechpartner gewählt");
+            }
+
+            //Datengrid Aktualisieren
+            DG_Ansprechpartner.ItemsSource = null;
+            DG_Ansprechpartner.ItemsSource = partnerListe;
+
+            partnerListe = new ObservableCollection<AnsprechpartnerDto>(LoadAnsprechpartner());
+
+            DG_Ansprechpartner.ItemsSource = partnerListe;
         }
     }
 }

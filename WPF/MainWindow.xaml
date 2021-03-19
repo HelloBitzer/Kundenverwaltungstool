@@ -5,21 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d"
-        Title="Kundenverwaltungstool" Height="450" Width="800" Closing="Window_Closing" >
-    <Grid Background="#FFD9E2E3" OpacityMask="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
+        Title="Kundenverwaltungstool" Height="591" Width="978" Closing="Window_Closing" >
+    <Grid Background="#FFD9E2E3" OpacityMask="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Margin="0,0,0,6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Kundendaten" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="26,23,0,0" Height="26" Width="81"/>
-        <DataGrid x:Name="DG_Kunden" ItemsSource="{Binding kundenListe}" IsReadOnly="True"  Width="350" Height="268" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="26,0,0,101" />
-        <DataGrid x:Name="DG_Termine" ItemsSource="{Binding terminListe}" IsReadOnly="True"  Width="350" Height="268" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="419,0,0,101"   />
-        <Button x:Name="BT_KD_Anlegen" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="26,359,0,0" Content="Anlegen" Click="BT_KD_Anlegen_OnClick" />
-        <Button x:Name="BT_KD_Aendern" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,554,45" Content="Ändern" Click="BT_KD_Aendern_OnClick" />
-        <Button x:Name="BT_KD_Loeschen" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,429,45" Content="Löschen" Click="BT_KD_Loeschen_OnClick" />
+        <Label Content="Kundendaten" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,29,0,0" Height="26" Width="81"/>
+        <DataGrid x:Name="DG_Kunden" ItemsSource="{Binding kundenListe}" IsReadOnly="True"  Width="350" Height="421" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="30,0,0,65" />
+        <DataGrid x:Name="DG_Termine" ItemsSource="{Binding terminListe}" IsReadOnly="True"  Width="350" Height="185" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="489,0,0,321"   />
+        <Button x:Name="BT_KD_Anlegen" Width="100" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,519,0,0" Content="Anlegen" Click="BT_KD_Anlegen_OnClick" />
+        <Button x:Name="BT_KD_Aendern" Width="100" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,723,27" Content="Ändern" Click="BT_KD_Aendern_OnClick" />
+        <Button x:Name="BT_KD_Loeschen" Width="100" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,598,27" Content="Löschen" Click="BT_KD_Loeschen_OnClick" />
 
-        <Label Content="Termine" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="418,21,0,0" Height="26" Width="52"/>
-        <Button Name="BT_Neuer_Termin" Content="Neuer Termin" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,359,279,0" Width="102" Click="BT_Neuer_Termin_OnClick" Height="30" />
-        <Button Name="BT_Termin_ändern" Content="Ändern" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,358,156,0" Width="100" Click="BT_Termin_ändern_OnClick"  Height="30" />
-        <Button Name="BT_Termin_Loeschen" Content="Termin löschen" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,358,32,0" Width="100" Click="BT_Termin_Loeschen_OnClick" Height="30"/>
+        <Label Content="Termine" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="491,9,0,0" Height="26" Width="52"/>
+        <Button Name="BT_Neuer_Termin" Content="Neuer Termin" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="866,95,0,0" Width="102" Click="BT_Neuer_Termin_OnClick" Height="23" />
+        <Button Name="BT_Termin_ändern" Content="Ändern" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,140,11,0" Width="100" Click="BT_Termin_ändern_OnClick"  Height="22" />
+        <Button Name="BT_Termin_Loeschen" Content="Termin löschen" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,186,10,0" Width="100" Click="BT_Termin_Loeschen_OnClick" Height="22"/>
+        <Label Content="Ansprechpartner" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="447,280,0,0" Height="26" Width="102"/>
+        <DataGrid x:Name="DG_Ansprechpartner" ItemsSource="{Binding partnerListe}" IsReadOnly="True"  Width="350" Height="185" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="447,0,0,65"   />
+        <Button x:Name="BT_Ansprechpartner_Anlegen" Width="100" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="823,359,0,0" Content="Anlegen" Click="BT_Ansprechpartner_Anlegen_OnClick" />
+        <Button x:Name="BT_Ansprechpartner_Aendern" Width="100" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,55,141" Content="Ändern" Click="BT_Ansprechpartner_Aendern_OnClick" />
+        <Button x:Name="BT_Ansprechpartner_Loeschen" Width="100" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,55,95" Content="Löschen" Click="BT_Ansprechpartner_Loeschen_OnClick" />
     </Grid>
 </Window>

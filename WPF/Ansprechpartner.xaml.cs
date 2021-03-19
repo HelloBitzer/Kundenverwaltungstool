@@ -15,35 +15,32 @@ using MyNamespace;
 namespace WPF
 {
     /// <summary>
-    /// Interaktionslogik für KundenAnlegenAendern.xaml
+    /// Interaktionslogik für Ansprechpartner.xaml
     /// </summary>
-    public partial class KundenAnlegenAendern : Window
+    public partial class Ansprechpartner : Window
     {
-        public ObservableCollection<FirmaDto> kundenListe { get; set; } = new ObservableCollection<FirmaDto>();
+        public ObservableCollection<AnsprechpartnerDto> partnerListe { get; set; } = new ObservableCollection<AnsprechpartnerDto>();
 
         int index;
         private Client client = null;
         private static string url = @"http://localhost:44328";
 
-
-        public KundenAnlegenAendern()
+        public Ansprechpartner()
         {
         }
 
-
-        public KundenAnlegenAendern(System.Collections.ObjectModel.ObservableCollection<FirmaDto> kundenListe, int index)
+        public Ansprechpartner(System.Collections.ObjectModel.ObservableCollection<AnsprechpartnerDto> partnerListe, int index)
         {
             InitializeComponent();
-            this.kundenListe = kundenListe;
+            this.partnerListe = partnerListe;
             this.index = index;
-
 
             //Prüfen ob anlegen oder ändern
             if (index == -1)
             {
                 //anlegen
                 //Fenster für ändern anpassen
-                this.Title = "Firma anlegen";
+                this.Title = "Ansprechpartner anlegen";
                 BT_speichern.Content = "Hinzufügen";
 
             }
@@ -51,25 +48,21 @@ namespace WPF
             {
                 //ändern
                 //Fenster für ändern anpassen
-                this.Title = "Firmendaten ändern";
+                this.Title = "Ansprechpartner ändern";
                 BT_speichern.Content = "Ändern";
 
-                //Felder mit Firmendaten füllen
-                TB_Name.Text = kundenListe[index].Name;
-                TB_Strasse.Text = kundenListe[index].Strasse;
-                TB_Hausnummer.Text = kundenListe[index].Hausnummer;
-                TB_PLZ.Text = kundenListe[index].Plz;
-                TB_Ort.Text = kundenListe[index].Ort;
+                //Ansprechpartner
+                TB_Titel.Text = partnerListe[index].Titel;
+                TB_Nname.Text = partnerListe[index].Nachname;
+                TB_Vname.Text = partnerListe[index].Vorname;
+                TB_Telefon.Text = partnerListe[index].Telefon;
+                TB_mail.Text = partnerListe[index].Email;
             }
+
         }
 
         public int SelectedIndex { get; }
 
-
-        private void BT_abbrechen_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         private void BT_speichern_OnClick(object sender, RoutedEventArgs e)
         {
@@ -79,23 +72,24 @@ namespace WPF
             if (index == -1)
             {
                 //Anlegen
-                var firma = new FirmaDto()
+                var ansprechpartner = new AnsprechpartnerDto()
                 {
-                    Name = TB_Name.Text,
-                    Strasse = TB_Strasse.Text,
-                    Hausnummer = TB_Hausnummer.Text,
-                    Plz = TB_PLZ.Text,
-                    Ort = TB_Ort.Text,
+                    //Ansprechpartner
+                    Titel = TB_Titel.Text,
+                    Nachname = TB_Nname.Text,
+                    Vorname = TB_Vname.Text,
+                    Telefon = TB_Telefon.Text,
+                    Email = TB_mail.Text
                 };
 
                 // client
                 client = new Client(url);
 
-                var erg = client.PostFirmaAsync(firma).Result;
+                var erg = client.PostAnsprechpartnerAsync(ansprechpartner).Result;
 
-                if (erg.FirmenId > 0)
+                if (erg.AnsprechpartnerId > 0)
                 {
-                    kundenListe.Add(erg);
+                    partnerListe.Add(erg);
                     MessageBox.Show("Speichern erfolgreich");
 
                     this.Close();
@@ -106,31 +100,32 @@ namespace WPF
             {
                 try
                 {
-                    // zusammenbauen des Objektes Firma
+                    // zusammenbauen des Objektes Ansprechpartner
 
-                    kundenListe[index].Name = TB_Name.Text;
-                    kundenListe[index].Strasse = TB_Strasse.Text;
-                    kundenListe[index].Hausnummer = TB_Hausnummer.Text;
-                    kundenListe[index].Plz = TB_PLZ.Text;
-                    kundenListe[index].Ort = TB_Ort.Text;
+                    partnerListe[index].Titel = TB_Titel.Text;
+                    partnerListe[index].Nachname = TB_Nname.Text;
+                    partnerListe[index].Vorname = TB_Vname.Text;
+                    partnerListe[index].Telefon = TB_Telefon.Text;
+                    partnerListe[index].Email = TB_mail.Text;
+
 
                     // client
                     client = new Client(url);
 
-                    var p = kundenListe[index];
+                    var p = partnerListe[index];
 
-                    var firma = new FirmaDto()
+                    var ansprechpartner = new AnsprechpartnerDto()
                     {
-                        FirmenId = p.FirmenId,
-                        Name = p.Name,
-                        Strasse = p.Strasse,
-                        Hausnummer = p.Hausnummer,
-                        Plz = p.Plz,
-                        Ort = p.Ort
+                        AnsprechpartnerId = p.AnsprechpartnerId,
+                        Titel = p.Titel,
+                        Nachname = p.Nachname,
+                        Vorname = p.Vorname,
+                        Telefon = p.Telefon,
+                        Email = p.Email
                     };
 
                     //Ändern
-                    client.PutFirmaAsync(firma.FirmenId, firma);
+                    client.PutAnsprechpartnerAsync(ansprechpartner.AnsprechpartnerId, ansprechpartner);
 
                     if (close)
                     {
@@ -175,10 +170,10 @@ namespace WPF
                 }
             }
         }
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+
+        private void BT_abbrechen_OnClick(object sender, RoutedEventArgs e)
         {
-            client = new Client(url);
+            throw new NotImplementedException();
         }
     }
 }
-
