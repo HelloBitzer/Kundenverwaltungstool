@@ -107,7 +107,7 @@ namespace ApiService.Controllers
         {
             var termin = new Termin()
             {
-                TerminId = termins.TerminId,
+           
                 Start = termins.Start,
                 Ende = termins.Ende,
                 Bemerkung = termins.Bemerkung
@@ -116,8 +116,8 @@ namespace ApiService.Controllers
 
             _context.Termins.Add(termin);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTermin", new { id = termin.TerminId }, termin);
+            termins.TerminId = termin.TerminId;
+            return CreatedAtAction("GetTermin", new { id = termins.TerminId }, termins);
         }
 
         // DELETE: api/Termin/5
