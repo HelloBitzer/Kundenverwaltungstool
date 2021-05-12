@@ -150,9 +150,9 @@ namespace WPF
                 MessageBox.Show("Kein Kunde gewählt");
             }
 
-            //Firma firma = DG_Kunden.SelectedItem as Firma;
+            FirmaDto firma = DG_Kunden.SelectedItem as FirmaDto;
 
-           // client.DeleteFirmaAsync(firma.FirmenId);
+            client.DeleteFirmaAsync(firma.FirmenId);
 
             //Datengrid Aktualisieren
             DG_Kunden.ItemsSource = null;
@@ -212,9 +212,9 @@ namespace WPF
                 MessageBox.Show("Kein Termin gewählt");
             }
 
-            Termin termins = DG_Termine.SelectedItem as Termin;
+            TerminDto termins = DG_Termine.SelectedItem as TerminDto;
 
-           // client.DeleteTerminAsync(termins.TerminId);
+           client.DeleteTerminAsync(termins.TerminId);
 
             //Datengrid Aktualisieren
             DG_Termine.ItemsSource = null;
@@ -261,6 +261,9 @@ namespace WPF
             {
                 MessageBox.Show("Kein Ansprechpartner gewählt");
             }
+
+            AnsprechpartnerDto ansprechpartner = DG_Ansprechpartner.SelectedItem as AnsprechpartnerDto;
+            client.DeleteAnsprechpartnerAsync(ansprechpartner.AnsprechpartnerId);
 
             //Datengrid Aktualisieren
             DG_Ansprechpartner.ItemsSource = null;

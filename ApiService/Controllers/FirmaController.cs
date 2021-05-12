@@ -115,7 +115,6 @@ namespace ApiService.Controllers
         {
             var firmas = new Firma()
             {
-                FirmenId = firma.FirmenId,
                 Name = firma.Name,
                 Strasse = firma.Strasse,
                 Hausnummer = firma.Hausnummer,
@@ -125,7 +124,7 @@ namespace ApiService.Controllers
 
             _context.Firmas.Add(firmas);
             await _context.SaveChangesAsync();
-
+            firma.FirmenId = firmas.FirmenId;
             return CreatedAtAction("GetFirma", new { id = firma.FirmenId }, firma);
         }
 
