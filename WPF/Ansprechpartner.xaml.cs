@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,7 @@ namespace WPF
     public partial class Ansprechpartner : Window
     {
         public ObservableCollection<AnsprechpartnerDto> partnerListe { get; set; } = new ObservableCollection<AnsprechpartnerDto>();
+        public ObservableCollection<FirmaDto> firmenliste { get; set; } = new ObservableCollection<FirmaDto>();
 
         int index;
         private Client client = null;
@@ -29,11 +31,29 @@ namespace WPF
         {
         }
 
-        public Ansprechpartner(System.Collections.ObjectModel.ObservableCollection<AnsprechpartnerDto> partnerListe, int index)
+        public Ansprechpartner(System.Collections.ObjectModel.ObservableCollection<AnsprechpartnerDto> partnerListe, System.Collections.ObjectModel.ObservableCollection<FirmaDto> firmenliste, int index)
         {
             InitializeComponent();
             this.partnerListe = partnerListe;
+            this.firmenliste = firmenliste;
             this.index = index;
+
+
+            if (this.firmenliste != null)
+            {
+                DT_Firmen.ItemsSource = this.firmenliste;
+
+
+                if (this.index != -1)
+                {
+
+                    var firma = this.firmenliste.FirstOrDefault(o => o.FirmenId == partnerListe[this.index].FirmenId);
+                    if (firma != null)
+                    {
+                        DT_Firmen.SelectedItem = firma;
+                    }
+                }
+            }
 
             //Prüfen ob anlegen oder ändern
             if (index == -1)
@@ -58,7 +78,6 @@ namespace WPF
                 TB_Telefon.Text = partnerListe[index].Telefon;
                 TB_mail.Text = partnerListe[index].Email;
             }
-
         }
 
         public int SelectedIndex { get; }
@@ -67,10 +86,17 @@ namespace WPF
         private void BT_speichern_OnClick(object sender, RoutedEventArgs e)
         {
             bool close = true;
+            int firmenID = -1;
+            var firma = DT_Firmen.SelectedItem as FirmaDto;
+            if (firma != null)
+            {
+                firmenID = firma.FirmenId;
+            }
 
             //Prüfen ob Ändern oder Anlegen
             if (index == -1)
             {
+
                 //Anlegen
                 var ansprechpartner = new AnsprechpartnerDto()
                 {
@@ -79,7 +105,8 @@ namespace WPF
                     Nachname = TB_Nname.Text,
                     Vorname = TB_Vname.Text,
                     Telefon = TB_Telefon.Text,
-                    Email = TB_mail.Text
+                    Email = TB_mail.Text,
+                    FirmenId = firmenID
                 };
 
                 // client
@@ -107,6 +134,7 @@ namespace WPF
                     partnerListe[index].Vorname = TB_Vname.Text;
                     partnerListe[index].Telefon = TB_Telefon.Text;
                     partnerListe[index].Email = TB_mail.Text;
+                    partnerListe[index].FirmenId = firmenID;
 
 
                     // client
@@ -121,7 +149,8 @@ namespace WPF
                         Nachname = p.Nachname,
                         Vorname = p.Vorname,
                         Telefon = p.Telefon,
-                        Email = p.Email
+                        Email = p.Email,
+                        FirmenId = firmenID
                     };
 
                     //Ändern
@@ -174,6 +203,31 @@ namespace WPF
         private void BT_abbrechen_OnClick(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+
+        private void Window_Initialized(object sender, EventArgs e)
+        {
+            //if (this.firmenliste != null)
+            //{
+            //    DT_Firmen.ItemsSource = this.firmenliste;
+
+
+            //    if (this.SelectedIndex != -1)
+            //    {
+
+            //        var firma = this.firmenliste.FirstOrDefault(o => o.FirmenId == partnerListe[index].FirmenId);
+            //        if (firma != null)
+            //        {
+            //            DT_Firmen.SelectedItem = firma;
+            //        }
+
+
+
+            //    }
+
+
+            //}
         }
     }
 }

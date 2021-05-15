@@ -5,21 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d"
-        Title="Ansprechpartner" Height="450" Width="638">
-    <Grid Background="#FFD9E2E3" HorizontalAlignment="Left" Width="644" Margin="-2,0,0,0">
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="374" Margin="0,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="428"/>
-        <Label Content="Nachname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="161,125,0,0"/>
-        <TextBox x:Name="TB_Nname" HorizontalAlignment="Left" Height="23" Margin="164,156,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
-        <Label Content="Vorname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="161,191,0,0"/>
-        <TextBox x:Name="TB_Vname" HorizontalAlignment="Left" Height="23" Margin="164,217,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
-        <Label Content="Telefon" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="161,255,0,0"/>
-        <TextBox x:Name="TB_Telefon" HorizontalAlignment="Left" Height="23" Margin="164,281,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
-        <Label Content="E-mail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="161,321,0,0"/>
-        <TextBox x:Name="TB_mail" HorizontalAlignment="Left" Height="23" Margin="164,347,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
-        <Button x:Name="BT_speichern" Content="Anlegen" HorizontalAlignment="Right" Margin="0,0,108,8" VerticalAlignment="Bottom" Width="74" Click="BT_speichern_OnClick"/>
-        <Label Content="Ansprechpartner" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="156,24,0,0"/>
-        <Button x:Name="BT_abbrechen" Content="Abbrechen" HorizontalAlignment="Left" Margin="109,406,0,0" VerticalAlignment="Top" Width="74" Click="BT_abbrechen_OnClick"/>
-        <TextBox x:Name="TB_Titel" HorizontalAlignment="Left" Height="23" Margin="164,91,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
-        <Label Content="Titel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="161,57,0,0"/>
+        Title="Ansprechpartner" Height="591" Width="638" Initialized="Window_Initialized">
+    <Grid Background="#FFD9E2E3" HorizontalAlignment="Left" Width="640" Margin="-2,0,0,-42">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="440" Margin="0,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="428"/>
+        <Label Content="Nachname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="209,121,0,0" Height="26" Width="67"/>
+        <TextBox x:Name="TB_Nname" HorizontalAlignment="Left" Height="23" Margin="213,152,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
+        <Label Content="Vorname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="209,187,0,0" Height="26" Width="57"/>
+        <TextBox x:Name="TB_Vname" HorizontalAlignment="Center" Height="23" Margin="0,213,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
+        <Label Content="Telefon" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="209,251,0,0" Height="26" Width="48"/>
+        <TextBox x:Name="TB_Telefon" HorizontalAlignment="Left" Height="23" Margin="213,277,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
+        <Label Content="E-mail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="209,317,0,0" Height="26" Width="43"/>
+        <TextBox x:Name="TB_mail" HorizontalAlignment="Left" Height="23" Margin="213,343,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
+        <Button x:Name="BT_speichern" Content="Anlegen" HorizontalAlignment="Right" Margin="0,474,106,0" VerticalAlignment="Top" Width="214" Click="BT_speichern_OnClick" Height="23"/>
+        <Label Content="Ansprechpartner" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="208,24,0,0" Height="26" Width="98"/>
+        <Button x:Name="BT_abbrechen" Content="Abbrechen" HorizontalAlignment="Left" Margin="107,474,0,0" VerticalAlignment="Top" Width="214" Click="BT_abbrechen_OnClick" Height="23"/>
+        <TextBox x:Name="TB_Titel" HorizontalAlignment="Left" Height="23" Margin="213,87,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
+        <Label Content="Titel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="209,57,0,0" Height="26" Width="32"/>
+        <ComboBox x:Name="DT_Firmen" HorizontalAlignment="Left" Margin="213,405,0,0" VerticalAlignment="Top" Width="218" Height="23" DisplayMemberPath="Name"/>
+        <Label Content="Firma" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="208,375,0,0" Height="26" Width="39"/>
     </Grid>
 </Window>

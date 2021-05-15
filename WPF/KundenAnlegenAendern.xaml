@@ -7,21 +7,21 @@
         mc:Ignorable="d"
         Title="KundenAnlegenAendern" Height="450" Width="638" Closing="Window_Closing">
 
-    <Grid Background="#FFD9E2E3" HorizontalAlignment="Left" Width="644" Margin="-2,0,0,0">
+    <Grid Background="#FFD9E2E3" HorizontalAlignment="Left" Width="644" Margin="-2,0,0,-16">
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="366" Margin="124,23,0,0" Stroke="Black" VerticalAlignment="Top" Width="428"/>
 
-        <Label Content="Firma" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="151,29,0,0"/>
-        <Label Content="Strasse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="151,126,0,0"/>
-        <TextBox x:Name="TB_Strasse" HorizontalAlignment="Left" Height="23" Margin="154,151,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
-        <Label Content="Hausnummer" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="151,181,0,0"/>
-        <TextBox x:Name="TB_Hausnummer" HorizontalAlignment="Left" Height="23" Margin="154,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="218"/>
-        <Label Content="Postleitzahl" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="151,241,0,0"/>
-        <TextBox x:Name="TB_PLZ" HorizontalAlignment="Left" Height="23" Margin="154,266,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
-        <Label Content="Ort" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="151,306,0,0"/>
-        <TextBox x:Name="TB_Ort" HorizontalAlignment="Left" Height="23" Margin="154,331,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
-        <Button x:Name="BT_speichern" Content="Anlegen" HorizontalAlignment="Right" Margin="0,0,92,8" VerticalAlignment="Bottom" Width="74" Click="BT_speichern_OnClick"/>
-        <Button x:Name="BT_abbrechen" Content="Abbrechen" HorizontalAlignment="Right" Margin="0,0,446,8" VerticalAlignment="Bottom" Width="74" Click="BT_abbrechen_OnClick"/>
-        <Label Content="Firmenname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="151,62,0,0"/>
-        <TextBox x:Name="TB_Name" HorizontalAlignment="Left" Height="23" Margin="154,91,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
+        <Label Content="Firma" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="227,29,0,0"/>
+        <Label Content="Strasse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="227,124,0,0"/>
+        <TextBox x:Name="TB_Strasse" HorizontalAlignment="Left" Height="23" Margin="229,151,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
+        <Label Content="Hausnummer" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="227,181,0,0"/>
+        <TextBox x:Name="TB_Hausnummer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218" Margin="229,212,0,0"/>
+        <Label Content="Postleitzahl" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="227,241,0,0"/>
+        <TextBox x:Name="TB_PLZ" HorizontalAlignment="Left" Height="23" Margin="229,272,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
+        <Label Content="Ort" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="227,306,0,0"/>
+        <TextBox x:Name="TB_Ort" HorizontalAlignment="Left" Height="23" Margin="229,332,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
+        <Button x:Name="BT_speichern" Content="Anlegen" HorizontalAlignment="Right" Margin="0,400,90,0" VerticalAlignment="Top" Height="23" Width="214" Click="BT_speichern_OnClick"/>
+        <Button x:Name="BT_abbrechen" Content="Abbrechen" HorizontalAlignment="Right" Margin="0,400,304,0" VerticalAlignment="Top" Height="23" Width="214" Click="BT_abbrechen_OnClick"/>
+        <Label Content="Firmenname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="227,62,0,0"/>
+        <TextBox x:Name="TB_Name" HorizontalAlignment="Left" Height="23" Margin="229,88,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
     </Grid>
 </Window>

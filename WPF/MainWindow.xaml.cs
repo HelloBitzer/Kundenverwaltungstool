@@ -230,7 +230,7 @@ namespace WPF
             client = new Client(url);
 
             //Fenster erstellen
-            Ansprechpartner anf = new Ansprechpartner(partnerListe, -1);
+            Ansprechpartner anf = new Ansprechpartner(partnerListe,kundenListe, -1);
             //Fenster öffnen                                 
             anf.ShowDialog();
         }
@@ -244,13 +244,13 @@ namespace WPF
             }
 
             //Fenster erstellen
-            Ansprechpartner anf = new Ansprechpartner(partnerListe, DG_Ansprechpartner.SelectedIndex);
+            Ansprechpartner anf = new Ansprechpartner(partnerListe,kundenListe, DG_Ansprechpartner.SelectedIndex);
             //Fenster öffnen
             anf.ShowDialog();
 
             //Datengrid Aktualisieren
-            DG_Kunden.ItemsSource = null;
-            DG_Kunden.ItemsSource = kundenListe;
+            DG_Ansprechpartner.ItemsSource = null;
+            DG_Ansprechpartner.ItemsSource = partnerListe;
         }
 
         private void BT_Ansprechpartner_Loeschen_OnClick(object sender, RoutedEventArgs e)

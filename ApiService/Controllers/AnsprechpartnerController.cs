@@ -83,7 +83,6 @@ namespace ApiService.Controllers
                 return NotFound();
             }
 
-            ansprechpartners.AnsprechpartnerId = ansprechpartner.AnsprechpartnerId;
             ansprechpartners.Nachname = ansprechpartner.Nachname;
             ansprechpartners.Vorname = ansprechpartner.Vorname;
             ansprechpartners.Telefon = ansprechpartner.Telefon;
@@ -124,7 +123,7 @@ namespace ApiService.Controllers
         {
             //Prüfen ob es FirmenID gibt
 
-           var firma = _context.Firmas.FindAsync(ansprechpartner.FirmenId);
+           var firma = await _context.Firmas.FindAsync(ansprechpartner.FirmenId);
            if (firma == null)
            {
                return Conflict();
