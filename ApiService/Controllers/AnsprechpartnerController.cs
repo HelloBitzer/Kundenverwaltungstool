@@ -51,8 +51,6 @@ namespace ApiService.Controllers
                 return NotFound();
             }
 
-            //Fragen warum get und new
-
             var ansprechpartners = new AnsprechpartnerDto()
             {
                 AnsprechpartnerId = ansprechpartner.AnsprechpartnerId,

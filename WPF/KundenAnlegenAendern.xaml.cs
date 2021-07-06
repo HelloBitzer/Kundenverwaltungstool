@@ -30,7 +30,6 @@ namespace WPF
         {
         }
 
-
         public KundenAnlegenAendern(System.Collections.ObjectModel.ObservableCollection<FirmaDto> kundenListe, int index)
         {
             InitializeComponent();
@@ -137,7 +136,6 @@ namespace WPF
                         MessageBox.Show("Speichern erfolgreich");
 
                         this.Close();
-
                     }
                     else
                     {

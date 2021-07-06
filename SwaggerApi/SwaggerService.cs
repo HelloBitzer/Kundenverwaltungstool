@@ -40,6 +40,8 @@ namespace MyNamespace
             set { _baseUrl = value; }
         }
 
+        
+
         protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
 
         partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);

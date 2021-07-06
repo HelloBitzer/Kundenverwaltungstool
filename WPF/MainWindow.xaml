@@ -12,7 +12,7 @@
         </Grid.ColumnDefinitions>
         <Label Content="Kundendaten" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="54,11,0,0" Height="26" Width="81"/>
         <DataGrid x:Name="DG_Kunden" ItemsSource="{Binding kundenListe}" IsReadOnly="True"  Width="600" Height="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="56,38,0,0" />
-        <DataGrid x:Name="DG_Termine" ItemsSource="{Binding terminListe}" IsReadOnly="True"  Width="370" Height="486" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="794,38,0,0"   />
+        <DataGrid x:Name="DG_Termine" ItemsSource="{Binding terminListe}" IsReadOnly="True"  Width="352" Height="486" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="794,38,0,0"   />
         <Button x:Name="BT_KD_Anlegen" Width="200" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="56,246,0,0" Content="Anlegen" Click="BT_KD_Anlegen_OnClick" />
         <Button x:Name="BT_KD_Aendern" Width="200" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="256,246,0,0" Content="Ändern" Click="BT_KD_Aendern_OnClick" />
         <Button x:Name="BT_KD_Loeschen" Width="200" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="456,246,0,0" Content="Löschen" Click="BT_KD_Loeschen_OnClick" />

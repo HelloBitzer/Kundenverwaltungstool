@@ -52,11 +52,9 @@ namespace WPF
             DG_Kunden.ItemsSource = kundenListe;
             DG_Termine.ItemsSource = terminListe;
             DG_Ansprechpartner.ItemsSource = partnerListe;
-
         }
 
         //Load Methoden
-
         private ICollection<FirmaDto> LoadFirma()
         {
             try
